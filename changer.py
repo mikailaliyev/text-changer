@@ -32,10 +32,11 @@ def capitalize_all():
     print(temp_list)
     for i in temp_list:
         if "\n" in i:
-            new_list.append(i[0 : i.index("\n")].capitalize() +"\n"+ i[i.index("\n")].capitalize())
+            start = i.find("\n")
+            end = i.rfind("\n")
+            new_list.append(i[0: start].capitalize() + i[start: end+1] + i[end + 1: ].capitalize())
         else:
             new_list.append(i.capitalize())
-    # temp_list = list(map (lambda x: x.capitalize(), temp_list))
     text = " ".join(new_list)
     input_text.insert(1.0, text)
     deselect(capitalize_all_text_value)
