@@ -1,5 +1,5 @@
 from tkinter import *
-
+import re
 def show():
     print(input_text.get(1.0, "end-1c"))
 
@@ -20,23 +20,32 @@ def lower():
 def capitalize():
     text = input_text.get(1.0, "end-1c")
     input_text.delete('1.0', END)
-    text = text.capitalize()
-    input_text.insert(1.0, text)
     deselect(capitalize_text_value)
+    dots_list = []
+    for i in re.finditer(r'[.;!?]', string=text):
+        dots_list.append(i.start())
+    print(dots_list)
+    new_list = []
+    for i in dots_list:
+        new_list.append(text.split(text[i]))
+    print(new_list)
+    input_text.insert(1.0, text)    
+    
     
 def capitalize_all():
     text = input_text.get(1.0, "end-1c")
     input_text.delete('1.0', END)
     temp_list = text.split(" ")
-    new_list = []
     print(temp_list)
+    new_list = []
     for i in temp_list:
         if "\n" in i:
             start = i.find("\n")
             end = i.rfind("\n")
-            new_list.append(i[0: start].capitalize() + i[start: end+1] + i[end + 1: ].capitalize())
+            new_list.append(i[0: start].capitalize() + i[start: end+1] + i[end + 1:].capitalize())
         else:
             new_list.append(i.capitalize())
+    print(new_list)
     text = " ".join(new_list)
     input_text.insert(1.0, text)
     deselect(capitalize_all_text_value)
