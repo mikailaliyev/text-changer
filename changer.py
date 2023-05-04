@@ -22,13 +22,25 @@ def capitalize():
     input_text.delete('1.0', END)
     deselect(capitalize_text_value)
     dots_list = []
-    for i in re.finditer(r'[.;!?]', string=text):
+    for i in re.finditer(r'[.!?]', string=text):
         dots_list.append(i.start())
-    print(dots_list)
-    new_list = []
+
+    temp_list = []
+    first = 0
     for i in dots_list:
-        new_list.append(text.split(text[i]))
-    print(new_list)
+        temp_list.append(text[first : i + 1])
+        first = i + 1
+        
+    print(temp_list)
+    for i in range(len(temp_list)):
+        letter = re.findall("[A-z]", temp_list[i])[0]        
+        temp_list[i] = list(temp_list[i])
+        temp_list[i][temp_list[i].index(letter)] = letter.capitalize()
+        print(temp_list[i])
+        temp_list[i] = "".join(temp_list[i])
+    text = "".join(temp_list)
+    dots_list = []
+    temp_list = []
     input_text.insert(1.0, text)    
     
     
