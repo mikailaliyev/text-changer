@@ -21,24 +21,34 @@ def capitalize():
     text = input_text.get(1.0, "end-1c")
     input_text.delete('1.0', END)
     deselect(capitalize_text_value)
+    
+    #if a sentence doesn't have any punctuation marks
+    if ".?!" not in text:
+        text = text.capitalize()
+        input_text.insert(1.0, text)   
+        return
+    
+    #finding indexes of punctuation marks
     dots_list = []
     for i in re.finditer(r'[.!?]', string=text):
         dots_list.append(i.start())
 
+    #splitting text into list items according to punctuation marks' indexes
     temp_list = []
     first = 0
     for i in dots_list:
         temp_list.append(text[first : i + 1])
         first = i + 1
         
-    print(temp_list)
+    # capitalizing every first letter of the list items
     for i in range(len(temp_list)):
         letter = re.findall("[A-z]", temp_list[i])[0]        
         temp_list[i] = list(temp_list[i])
         temp_list[i][temp_list[i].index(letter)] = letter.capitalize()
-        print(temp_list[i])
         temp_list[i] = "".join(temp_list[i])
     text = "".join(temp_list)
+    
+    # clearing lists
     dots_list = []
     temp_list = []
     input_text.insert(1.0, text)    
