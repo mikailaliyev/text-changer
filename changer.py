@@ -1,11 +1,11 @@
 from tkinter import *
 import re
-import pyperclip
+from pyperclip import copy as copyToClipboard
 
 
 def copy_to_clipboard():
     text = input_text.get(1.0, "end-1c")
-    pyperclip.copy(text)
+    copyToClipboard(text)
 
 
 def upper():
@@ -81,8 +81,6 @@ def capitalize_all():
     deselect(capitalize_all_text_value)
 
 # deselecting other buttons
-
-
 def deselect(current):
     button_values_list = [upper_text_value, lower_text_value,
                           capitalize_text_value, capitalize_all_text_value]
@@ -125,7 +123,7 @@ capitalize_all_text = Checkbutton(
     text="Capitalize All", variable=capitalize_all_text_value, command=capitalize_all)
 capitalize_all_text.place(x=1100, y=5)
 
-# All text copied
+# All text copied to clipboard
 show_text = Button(text="Copy text to clipboard", command=copy_to_clipboard)
 show_text.place(x=810, y=690)
 window.mainloop()
