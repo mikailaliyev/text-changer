@@ -126,6 +126,6 @@ capitalize_all_text = Checkbutton(
 capitalize_all_text.place(x=1100, y=5)
 
 # All text copied
-show_text = Button(text="Copy text", command=copy_to_clipboard)
+show_text = Button(text="Copy text to clipboard", command=copy_to_clipboard)
 show_text.place(x=810, y=690)
 window.mainloop()
