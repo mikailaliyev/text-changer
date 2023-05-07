@@ -81,6 +81,8 @@ def capitalize_all():
     deselect(capitalize_all_text_value)
 
 # deselecting other buttons
+
+
 def deselect(current):
     button_values_list = [upper_text_value, lower_text_value,
                           capitalize_text_value, capitalize_all_text_value]
@@ -88,6 +90,18 @@ def deselect(current):
     button_values_list.remove(current)
     for i in button_values_list:
         i.set(False)
+
+
+def replace():
+    text = input_text.get(1.0, "end-1c")
+    find = find_input.get()
+    replace = replace_input.get()
+    text = input_text.get(1.0, "end-1c")
+    input_text.delete('1.0', END)
+    changed_text = text.replace(find, replace)
+    input_text.insert(1.0, changed_text)
+    find_input.delete(0, END)
+    replace_input.delete(0, END)
 
 
 window = Tk()
@@ -126,4 +140,15 @@ capitalize_all_text.place(x=1100, y=5)
 # All text copied to clipboard
 show_text = Button(text="Copy text to clipboard", command=copy_to_clipboard)
 show_text.place(x=810, y=690)
+
+# REPLACE
+find_label = Label(text="Replace All").place(x=807, y=35)
+find_input = Entry()
+find_input.place(x=810, y=60)
+
+replace_label = Label(text="with").place(x=807, y=85)
+replace_input = Entry()
+replace_input.place(x=810, y=110)
+
+replace_button = Button(text="Replace", command=replace).place(x=810, y=150)
 window.mainloop()
