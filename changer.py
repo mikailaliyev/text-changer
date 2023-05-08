@@ -65,7 +65,6 @@ def capitalize_all():
     text = input_text.get(1.0, "end-1c")
     input_text.delete('1.0', END)
     temp_list = text.split(" ")
-    print(temp_list)
     new_list = []
     for i in temp_list:
         if "\n" in i:
@@ -75,7 +74,6 @@ def capitalize_all():
                             i[start: end+1] + i[end + 1:].capitalize())
         else:
             new_list.append(i.capitalize())
-    print(new_list)
     text = " ".join(new_list)
     input_text.insert(1.0, text)
     deselect(capitalize_all_text_value)
@@ -85,7 +83,7 @@ def capitalize_all():
 
 def deselect(current):
     button_values_list = [upper_text_value, lower_text_value,
-                          capitalize_text_value, capitalize_all_text_value]
+                          capitalize_text_value, capitalize_all_text_value, format_text_value]
     # removing current button value from the list to allow it to stay active
     button_values_list.remove(current)
     for i in button_values_list:
@@ -102,6 +100,17 @@ def replace():
     input_text.insert(1.0, changed_text)
     find_input.delete(0, END)
     replace_input.delete(0, END)
+
+
+def format():
+    
+    capitalize()
+    deselect(format_text_value)
+    if format_text_value.get() == True:
+        print(True)
+        format_text_value.set(False)
+    format_text_value.set(True)
+
 
 
 window = Tk()
@@ -151,4 +160,8 @@ replace_input = Entry()
 replace_input.place(x=810, y=110)
 
 replace_button = Button(text="Replace", command=replace).place(x=810, y=150)
+
+format_text_value = BooleanVar(value=False)
+format_text = Checkbutton(
+    text="Format text", variable=format_text_value, command=format).place(x=1000, y=50)
 window.mainloop()
