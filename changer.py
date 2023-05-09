@@ -103,14 +103,16 @@ def replace():
 
 
 def format():
-    
-    capitalize()
     deselect(format_text_value)
-    if format_text_value.get() == True:
-        print(True)
-        format_text_value.set(False)
-    format_text_value.set(True)
-
+    text = input_text.get(1.0, "end-1c")
+    input_text.delete('1.0', END)
+    temp_list = text.split(" ")
+    # making a slice of list to delete additional empty spaces
+    for i in temp_list[:]:
+        if len(i) == 0:
+            temp_list.remove(i)            
+    text = " ".join(temp_list)
+    input_text.insert(1.0, text)
 
 
 window = Tk()
