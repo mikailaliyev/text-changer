@@ -102,16 +102,25 @@ def replace():
     replace_input.delete(0, END)
 
 
-def format():
+def format_text():
     deselect(format_text_value)
     text = input_text.get(1.0, "end-1c")
     input_text.delete('1.0', END)
     temp_list = text.split(" ")
+
     # making a slice of list to delete additional empty spaces
-    for i in temp_list[:]:
-        if len(i) == 0:
-            temp_list.remove(i)            
-    text = " ".join(temp_list)
+    empty_list = []
+    for i, item in enumerate(temp_list):
+        empty_list = temp_list[i].split("\n")
+        if len(item) == 0:
+            temp_list.remove(item)
+        for j in empty_list[:]:
+            if len(j) == 0:
+                empty_list.remove(j)
+
+        temp_list[i] = "\n".join(empty_list)
+
+        text = " ".join(temp_list)
     input_text.insert(1.0, text)
 
 
@@ -165,5 +174,5 @@ replace_button = Button(text="Replace", command=replace).place(x=810, y=150)
 
 format_text_value = BooleanVar(value=False)
 format_text = Checkbutton(
-    text="Format text", variable=format_text_value, command=format).place(x=1000, y=50)
+    text="Format text", variable=format_text_value, command=format_text).place(x=1000, y=50)
 window.mainloop()
