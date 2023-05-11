@@ -112,14 +112,16 @@ def format_text():
     empty_list = []
     for i, item in enumerate(temp_list):
         empty_list = temp_list[i].split("\n")
-        if len(item) == 0:
-            temp_list.remove(item)
         for j in empty_list[:]:
             if len(j) == 0:
                 empty_list.remove(j)
 
         temp_list[i] = "\n".join(empty_list)
-
+        
+    for i in temp_list[:]:
+        if len(i) == 0:
+            temp_list.remove(i)
+            # print(i)
         text = " ".join(temp_list)
     input_text.insert(1.0, text)
 
