@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import ttk
 import re
 from pyperclip import copy as copyToClipboard
 
@@ -30,7 +31,7 @@ def capitalize():
     deselect(capitalize_text_value)
 
     # if a sentence doesn't have any punctuation marks
-    if ".?!" not in text:
+    if text[-1] not in ".!?":
         text = text.capitalize()
         input_text.insert(1.0, text)
         return
@@ -127,54 +128,69 @@ def format_text():
 
 
 window = Tk()
-window.title("Text Changer")
-window.geometry("1200x720")
+window.columnconfigure(0, weight=1)
 
-input_text = Text()
-input_text.place(x=5, y=5, height=710, width=800)
+window.rowconfigure(6, weight=1)
+
+window.title("Text Changer")
+
+
+# INPUT
+input_text = Text(window)
+input_text.grid(row=0, column=0, rowspan=8, padx=5, pady=5, sticky=(N, S, E, W))
 
 # BUTTONS
 
 # All text UPPERCASE
 upper_text_value = BooleanVar(value=False)
-upper_text = Checkbutton(
+upper_text = Checkbutton(window,
     text="Upper", variable=upper_text_value, command=upper)
-upper_text.place(x=810, y=5)
+upper_text.grid(row=0, column=1, sticky=(N,W), padx=2, pady=2,)
 
 # All text lowercase
 lower_text_value = BooleanVar(value=False)
-lower_text = Checkbutton(
+lower_text = Checkbutton(window,
     text="Lower", variable=lower_text_value, command=lower)
-lower_text.place(x=900, y=5)
+lower_text.grid(row=0, column=2, sticky=(N,W), padx=2, pady=2)
 
 # First string Capitalize
 capitalize_text_value = BooleanVar(value=False)
-capitalize_text = Checkbutton(
+capitalize_text = Checkbutton(window,
     text="Capitalize", variable=capitalize_text_value, command=capitalize)
-capitalize_text.place(x=1000, y=5)
+capitalize_text.grid(row=0, column=3, sticky=(N,W), padx=2, pady=2)
 
 # All strings Capitalize
 capitalize_all_text_value = BooleanVar(value=False)
-capitalize_all_text = Checkbutton(
+capitalize_all_text = Checkbutton(window,
     text="Capitalize All", variable=capitalize_all_text_value, command=capitalize_all)
-capitalize_all_text.place(x=1100, y=5)
+capitalize_all_text.grid(row=1, column=1, sticky=(N,W), padx=2, pady=20)
 
-# All text copied to clipboard
-show_text = Button(text="Copy text to clipboard", command=copy_to_clipboard)
-show_text.place(x=810, y=690)
+# Format text
+format_text_value = BooleanVar(value=False)
+format_text_button = Checkbutton(window,
+    text="Format text", variable=format_text_value, command=format_text)
+format_text_button.grid(row=1, column=2, sticky=(N, W), padx=2, pady=20)
 
 # REPLACE
-find_label = Label(text="Replace All").place(x=807, y=35)
-find_input = Entry()
-find_input.place(x=810, y=60)
+find_label = Label(window, text="Replace All")
+find_label.grid(row=2, column=1, columnspan=3, sticky=(S))
+find_input = Entry(window, width=40)
+find_input.grid(row=3, column=1, columnspan=3, sticky=(N))
 
-replace_label = Label(text="with").place(x=807, y=85)
-replace_input = Entry()
-replace_input.place(x=810, y=110)
+replace_label = Label(window, text="with")
+replace_label.grid(row=4, column=1, sticky=(S), columnspan=4)
+replace_input = Entry(window, width=40)
+replace_input.grid(row=5, column=1,columnspan=4, sticky=(N))
 
-replace_button = Button(text="Replace", command=replace).place(x=810, y=150)
 
-format_text_value = BooleanVar(value=False)
-format_text = Checkbutton(
-    text="Format text", variable=format_text_value, command=format_text).place(x=1000, y=50)
+replace_button = Button(window, text="Replace", command=replace, width=20)
+replace_button.grid(row=6, column=1, sticky=(N), columnspan=4, pady=20)
+
+
+
+
+# All text copied to clipboard
+show_text = Button(window,text="Copy text to clipboard", command=copy_to_clipboard, width=20)
+show_text.grid(row=7, column=1, columnspan=4, sticky=(N), pady=5)
+
 window.mainloop()
