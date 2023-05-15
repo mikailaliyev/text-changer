@@ -65,17 +65,7 @@ def capitalize():
 def capitalize_all():
     text = input_text.get(1.0, "end-1c")
     input_text.delete('1.0', END)
-    temp_list = text.split(" ")
-    new_list = []
-    for i in temp_list:
-        if "\n" in i:
-            start = i.find("\n")
-            end = i.rfind("\n")
-            new_list.append(i[0: start].capitalize() +
-                            i[start: end+1] + i[end + 1:].capitalize())
-        else:
-            new_list.append(i.capitalize())
-    text = " ".join(new_list)
+    text = text.title()
     input_text.insert(1.0, text)
     deselect(capitalize_all_text_value)
 
