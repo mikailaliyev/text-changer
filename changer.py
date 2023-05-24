@@ -3,11 +3,9 @@ from tkinter import ttk
 import re
 from pyperclip import copy as copyToClipboard
 
-
 def copy_to_clipboard():
     text = input_text.get(1.0, "end-1c")
     copyToClipboard(text)
-
 
 def upper():
     text = input_text.get(1.0, "end-1c")
@@ -23,7 +21,6 @@ def lower():
     text = text.lower()
     input_text.insert(1.0, text)
     deselect(lower_text_value)
-
 
 def capitalize():
     text = input_text.get(1.0, "end-1c")
@@ -71,7 +68,6 @@ def capitalize_all():
 
 # deselecting other buttons
 
-
 def deselect(current):
     button_values_list = [upper_text_value, lower_text_value,
                           capitalize_text_value, capitalize_all_text_value, format_text_value]
@@ -91,7 +87,6 @@ def replace():
     input_text.insert(1.0, changed_text)
     find_input.delete(0, END)
     replace_input.delete(0, END)
-
 
 def format_text():
     deselect(format_text_value)
@@ -123,7 +118,6 @@ window.columnconfigure(0, weight=1)
 window.rowconfigure(6, weight=1)
 
 window.title("Text Changer")
-
 
 # INPUT
 input_text = Text(window)
@@ -172,12 +166,8 @@ replace_label.grid(row=4, column=1, sticky=(S), columnspan=4)
 replace_input = Entry(window, width=40)
 replace_input.grid(row=5, column=1,columnspan=4, sticky=(N))
 
-
 replace_button = Button(window, text="Replace", command=replace, width=20)
 replace_button.grid(row=6, column=1, sticky=(N), columnspan=4, pady=20)
-
-
-
 
 # All text copied to clipboard
 show_text = Button(window,text="Copy text to clipboard", command=copy_to_clipboard, width=20)
